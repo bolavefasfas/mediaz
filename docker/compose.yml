@@ -31,53 +31,6 @@ services:
     ports:
       - 7878:7878
       
-  sabnzbd:
-    image: ghcr.io/linuxserver/sabnzbd
-    container_name: sabnzbd
-    restart: unless-stopped
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${APPDATA}sabnzdb:/config
-      - ${DOWNLOAD}
-    ports:
-      - 8080:8080
-      
-  transmission:
-    image: ghcr.io/linuxserver/transmission
-    container_name: transmission
-    restart: unless-stopped    
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - USER={TRANSUSER}
-      - PASS={TRANSPASS}
-    volumes:
-      - ${APPDATA}transmission:/config
-      - ${DOWNLOAD}
-      - ${WATCH}
-    ports:
-      - 9091:9091
-      - 51413:51413
-      - 51413:51413/udp
-
-      
-  overseerr:
-    image: sctx/overseerr:latest
-    container_name: overseerr
-    restart: unless-stopped
-    environment:
-      - PUID=${USVC}
-      - PGID=${GSVC}
-      - TZ=${TZ}
-    volumes:
-      - ${APPDATA}overseerr:/app/config
-    ports:
-      - 5055:5055
-      
   jackett:
     image: linuxserver/jackett
     container_name: jackett
